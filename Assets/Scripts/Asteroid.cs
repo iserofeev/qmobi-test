@@ -50,7 +50,8 @@ public class Asteroid : MonoBehaviour
     private void SpawnSubAsteroids()
     {
 
-        for (int i = 0; i < 2; i++)
+        var num = Random.Range(2, 4);
+        for (int i = 0; i < num; i++)
         {
             var subAsteroid = Instantiate(this);
             subAsteroid.isBig = false;

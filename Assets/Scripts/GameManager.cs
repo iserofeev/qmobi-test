@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
         private set;
     }
 
+    private CapsuleCollider playerCollider;
     private int _playerPoints;
     public int _playerLives;
 
@@ -45,6 +46,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        playerCollider = player.GetComponent<CapsuleCollider>();
+
         AudioManager = GetComponent<AudioManager>();
         isGameOver = false;
         playerAnimator = player.GetComponent<Animator>();
@@ -91,6 +94,21 @@ public class GameManager : MonoBehaviour
 
     public void AddPlayerPoints(int points)
     {
+        switch (points)
+        {
+            case 100:
+            {
+                AudioManager.PlayAudio("Collect1");
+                return;
+            }
+
+            case 200:
+            {
+                AudioManager.PlayAudio("Collect2");
+                return;
+            }
+                
+        }
         _playerPoints += points;
         pointsText.text = $"Points: <b>{_playerPoints}</b>";
     }
@@ -132,7 +150,6 @@ public class GameManager : MonoBehaviour
     IEnumerator PlayerInvulnerable()
     {
         Invulnerable = true;
-        var playerCollider = player.GetComponent<CapsuleCollider>();
         playerCollider.enabled = false;
         
         playerAnimator.SetBool(Blink, true);

@@ -64,7 +64,7 @@ public class Player : MonoBehaviour
             //Get the point that is clicked
             Vector3 hitPoint = ray.GetPoint(enter);
 
-            transform.LookAt(hitPoint, transform.up);
+            transform.LookAt(hitPoint, Vector3.up);;
         }
         
     }
