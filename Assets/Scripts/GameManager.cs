@@ -44,6 +44,8 @@ public class GameManager : MonoBehaviour
     private Animator playerAnimator;
     private static readonly int Blink = Animator.StringToHash("Blink");
 
+    private int screenWidth, screenHeight;
+
     private void Awake()
     {
         playerCollider = player.GetComponent<CapsuleCollider>();
@@ -84,12 +86,21 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         RenderSettings.skybox.SetFloat(Rotation, Random.Range(0, 360));
+        screenWidth = Screen.width;
+        screenHeight = Screen.height;
     }
 
     // Update is called once per frame
     void Update()
     {
         RenderSettings.skybox.SetFloat(Rotation, Time.time * skyBoxRotationSpeed);
+
+        if (screenWidth != Screen.width || screenHeight != Screen.height)
+        {
+            CalcWorldConstrains();
+            screenWidth = Screen.width;
+            screenHeight = Screen.height;
+        }
     }
 
     public void AddPlayerPoints(int points)
