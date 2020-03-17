@@ -7,19 +7,19 @@ public class Player : MonoBehaviour
 {
     private Rigidbody _rigidbody;
     
-    private Plane _plane;
-    
     private Camera _mainCamera;
 
-    private const int ForceMultiplier = 40;
+    private const int ForceMultiplier = 50;
 
     public int bulletForce;
+
+    private Vector3 initPos = new Vector3(0, 0, 70);
 
     public Bullet bullet;
     // Start is called before the first frame update
     void Start()
     {
-        _plane = new Plane(Vector3.back, transform.position);
+        transform.position = initPos;
         _rigidbody = GetComponent<Rigidbody>();
         _mainCamera = Camera.main;
     }
@@ -27,12 +27,20 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Fire();
+        if (!GameManager.isGameOver)
+        {
+            CheckWorldConstrains();
+            Fire();
+        }
     }
 
     private void FixedUpdate()
     {
-        Movement();
+        if (!GameManager.isGameOver)
+        {
+            Movement();
+
+        }
     }
 
     private void Movement()
@@ -51,19 +59,20 @@ public class Player : MonoBehaviour
         
         float enter = 0.0f;
 
-        if (_plane.Raycast(ray, out enter))
+        if (GameManager.PlayerPlane.Raycast(ray, out enter))
         {
             //Get the point that is clicked
             Vector3 hitPoint = ray.GetPoint(enter);
 
             transform.LookAt(hitPoint, transform.up);
         }
+        
     }
 
     private void Fire()
     {
         if (!Input.GetButtonDown("Fire1")) return;
-
+        
         var bulletInstance = Instantiate(bullet);
         bulletInstance.transform.position = transform.position;
 
@@ -72,6 +81,24 @@ public class Player : MonoBehaviour
         var bulletRb = bulletInstance.GetComponent<Rigidbody>();
         
         bulletRb.AddForce(transform.forward*bulletForce, ForceMode.VelocityChange);
+        
+        _rigidbody.AddForce(transform.forward*(-6), ForceMode.Impulse);
 
+    }
+
+
+    private void CheckWorldConstrains()
+    {
+        var transformPosition = transform.position;
+
+        var outOfWorld = transformPosition.x > GameManager.maxWorldPoint.x ||
+                transformPosition.x < GameManager.minWorldPoint.x ||
+                transformPosition.y > GameManager.maxWorldPoint.y ||
+                transformPosition.y < GameManager.minWorldPoint.y;
+        if (outOfWorld)
+        {
+            GameManager.Instance.PlayerDamage();
+            transform.position = initPos;
+        }
     }
 }

@@ -10,8 +10,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float lifeTime;
 
     private Coroutine _destrroyRoutine;
-    
-    
+
     void Awake()
     {
         _destrroyRoutine = StartCoroutine(DestroyAfter());
@@ -27,5 +26,15 @@ public class Bullet : MonoBehaviour
     private void OnDestroy()
     {
         if (_destrroyRoutine != null) StopCoroutine(_destrroyRoutine);
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if(other.gameObject.TryGetComponent<Asteroid>(out var asteroid))
+        {
+            asteroid.Damage();
+            Destroy(this.gameObject);
+        }
+        
     }
 }

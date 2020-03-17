@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7033081225982176549}
   - component: {fileID: 2676734891577109633}
   - component: {fileID: 524448013967210680}
-  - component: {fileID: 3449999528620003795}
   m_Layer: 8
   m_Name: Capsule
   m_TagString: Untagged
@@ -80,20 +79,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &3449999528620003795
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3495991986494598840}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6601215318865548568
 GameObject:
   m_ObjectHideFlags: 0
@@ -106,6 +91,7 @@ GameObject:
   - component: {fileID: 6601215318865548570}
   - component: {fileID: -5332827196707097976}
   - component: {fileID: 6601215318865548569}
+  - component: {fileID: 444925952525430379}
   m_Layer: 8
   m_Name: BulletPrefab
   m_TagString: Untagged
@@ -253,3 +239,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeTime: 3
+--- !u!65 &444925952525430379
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6601215318865548568}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 4.0735397}
+  m_Center: {x: 0, y: 0, z: 0.0000038146973}
