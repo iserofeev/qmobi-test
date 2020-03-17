@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     private Camera _mainCamera;
     
-    public TextMeshProUGUI pointsText, livesTest;
+    public TextMeshProUGUI pointsText, livesTest, recordText;
     public GameObject newRecordText;
 
     private AudioManager AudioManager;
@@ -143,7 +143,7 @@ public class GameManager : MonoBehaviour
         }
         canvasAnimator.SetTrigger("GameOver");
         isGameOver = true;
-        
+        recordText.text = "Record: " + PlayerPrefs.GetInt("highScore");
         StopAllCoroutines();
     }
 
