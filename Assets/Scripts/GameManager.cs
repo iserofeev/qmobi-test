@@ -110,16 +110,18 @@ public class GameManager : MonoBehaviour
             case 100:
             {
                 AudioManager.PlayAudio("Collect1");
-                return;
+                break;
             }
 
             case 200:
             {
                 AudioManager.PlayAudio("Collect2");
-                return;
+                break;
             }
                 
         }
+        
+        Debug.Log("asasa");
         _playerPoints += points;
         pointsText.text = $"Points: <b>{_playerPoints}</b>";
     }
